@@ -50,7 +50,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(feature-mode yaml-mode)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -269,38 +269,27 @@ layers configuration. You are free to put any user code."
    js2-basic-offset 2
    js-indent-level 2
    js2-strict-missing-semi-warning nil
+   js2-mode-show-parse-errors nil
+   js2-include-node-externs nil
    ;; web-mode
    css-indent-offset 2
    web-mode-markup-indent-offset 2
    web-mode-css-indent-offset 2
    web-mode-code-indent-offset 2
    web-mode-attr-indent-offset 2)
+
+  ;; (add-to-list 'auto-mode-alist '("\\.js?\\'" . js2-jsx-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-jsx-mode))
   ;; (with-eval-after-load 'web-mode
   ;;   (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
   ;;   (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
   ;;   (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil)))
 
   ;; (setq js2-highlight-external-variables nil)
-  ;; (setq js2-mode-show-parse-errors nil)
 
   ;; (global-set-key [f12] '(lambda()
   ;;                          (interactive)
   ;;                          (async-shell-command "killall node; npm run dev")))
-
-  (defun term-send-backward-kill-word ()
-    "Backward kill word in term mode."
-    (interactive)
-    (term-send-raw-string "\C-w"))
-
-  (defun term-send-backward-one-word ()
-    "Backward kill word in term mode."
-    (interactive)
-    (term-send-raw-string "\eb"))
-
-  (defun term-send-forward-one-word ()
-    "Backward kill word in term mode."
-    (interactive)
-    (term-send-raw-string "\ef"))
 
   (add-hook 'term-mode-hook
             (lambda ()

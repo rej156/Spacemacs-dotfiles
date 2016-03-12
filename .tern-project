@@ -5,7 +5,9 @@
     "jquery"
   ],
   "loadEagerly": [
-    "path/to/your/js/**/*.js"
+    "path/to/your/js/**/*.js",
+    "src/**/*.js",
+    "src/**/*.jsx"
   ],
   "dontLoad": [
     "path/to/your/js/**/*.js"
@@ -13,8 +15,10 @@
   "plugins": {
     "complete_strings": {},
     "node": {},
+    "node-express": {},
     "lint": {},
     "angular": {},
+    "commonjs": {},
     "requirejs": {},
     "modules": {},
     "es_modules": {},
