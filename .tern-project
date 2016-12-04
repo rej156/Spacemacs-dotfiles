@@ -1,20 +1,31 @@
 {
   "ecmaVersion": 6,
+  "esVersion": 6,
   "libs": [
+    "ecma6",
+    "ecma5",
     "browser",
     "jquery"
   ],
   "loadEagerly": [
+    "./src/**",
+    "./src/**/*.js",
+    "./src/**/*.jsx",
+    "./src/**/*.test.jsx",
+    "./src/**/*.test.js",
+    "./node_modules/react/**/*.js",
     "path/to/your/js/**/*.js",
-    "src/**/*.js",
-    "src/**/*.jsx"
+    "*.js",
+    "*.jsx"
   ],
   "dontLoad": [
-    "path/to/your/js/**/*.js"
+    "path/to/your/js/**/*.js",
+    "node_modules/**"
   ],
   "plugins": {
     "complete_strings": {},
     "node": {},
+    "node-extension": {},
     "node-express": {},
     "lint": {},
     "angular": {},
@@ -22,7 +33,7 @@
     "requirejs": {},
     "modules": {},
     "es_modules": {},
-    "~/tern-react": {},
+    "react": {},
     "doc_comment": {
       "fullDocs": true
     }
