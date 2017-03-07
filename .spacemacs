@@ -20,7 +20,7 @@ values."
    ;; installation feature and you have to explicitly list a layer in the
    ;; variable `dotspacemacs-configuration-layers' to install it.
    ;; (default 'unused)
-   dotspacemacs-enable-lazy-installation 'unused
+   dotspacemacs-enable-lazy-installation 'nil
    ;; If non-nil then Spacemacs will ask for confirmation before installing
    ;; a layer lazily. (default t)
    dotspacemacs-ask-for-lazy-installation t
@@ -28,8 +28,7 @@ values."
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
    dotspacemacs-configuration-layer-path '()
-   ;; List of configuration layers to load. If it is the symbol `all' instead
-   ;; of a list then all discovered layers will be installed.
+   ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
      ;; ----------------------------------------------------------------
@@ -37,47 +36,46 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-      (auto-completion :variables
-                       auto-completion-enable-help-tooltip t
-                       auto-completion-enable-snippets-in-popup t)
-      better-defaults
-      ;;clojure
-      colors
-      ;;dash
-      docker
-      emacs-lisp
-      (git :variables
-           git-magit-status-fullscreen t
-           git-enable-github-support t
-           git-gutter-use-fringe t)
-      go
-      ;;gtags
-      ibuffer
-      javascript
-      markdown
-      org
-      osx
-      react
-      ;;ruby
-      (shell :variables
-             shell-default-height 30
-             shell-default-shell 'eshell
-             shell-default-term-shell "/bin/bash"
-             shell-default-position 'bottom
-      )
-      spell-checking
-      (syntax-checking :variables
-                       syntax-checking-enable-tooltips t)
-      terraform
-      ;;vagrant
-      version-control
+     (auto-completion :variables
+                      auto-completion-enable-help-tooltip t
+                      auto-completion-enable-snippets-in-popup t)
+     better-defaults
+     ;;(dash :variables dash/helm-dash-docset-newpath "~/Library/ApplicationSupport/Dash/DocSets/")
+     docker
+     emacs-lisp
+     (git :variables
+          git-magit-status-fullscreen t
+          git-enable-github-support t
+          git-gutter-use-fringe t)
+     go
+     (ibuffer :variables ibuffer-group-buffers-by 'projects)
+     ivy
+     javascript
+     markdown
+     org
+     osx
+     (shell :variables
+            shell-default-height 30
+            shell-default-position 'bottom)
+     react
+     spell-checking
+     (syntax-checking :variables
+                      syntax-checking-enable-tooltips t)
+     terraform
+     version-control
+     vue
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
-   ;; packages then consider to create a layer, you can also put the
-   ;; configuration in `dotspacemacs/config'.
-   dotspacemacs-additional-packages '(dumb-jump feature-mode yaml-mode react-snippets org-mobile-sync)
-   ;; A list of packages and/or extensions that will not be install and loaded.
+   ;; packages, then consider creating a layer. You can also put the
+   ;; configuration in `dotspacemacs/user-config'.
+   dotspacemacs-additional-packages '(pug-mode
+                                      tern-context-coloring
+                                      groovy-mode
+                                      stylus-mode)
+   ;; A list of packages that cannot be updated.
+   dotspacemacs-frozen-packages '()
+   ;; A list of packages that will not be installed and loaded.
    dotspacemacs-excluded-packages '()
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
@@ -110,7 +108,7 @@ values."
    ;; when the current branch is not `develop'. Note that checking for
    ;; new versions works via git commands, thus it calls GitHub services
    ;; whenever you start Emacs. (default nil)
-   dotspacemacs-check-for-update t
+   dotspacemacs-check-for-update nil
    ;; If non-nil, a form that evaluates to a package directory. For example, to
    ;; use different package directories for different Emacs versions, set this
    ;; to `emacs-version'.
@@ -146,22 +144,15 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(
+   dotspacemacs-themes '(sanityinc-solarized-dark
                          spacemacs-dark
-                         sanityinc-solarized-dark
-                         solarized-dark
-                         zenburn
-                         spacemacs-light
-                         solarized-light
-                         leuven
-                         monokai
-                         )
-   ;; If non nil the cursor color matches the state color.
+                         spacemacs-light)
+   ;; If non-nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("Fira Code Regular"
-                               :size 11
+   dotspacemacs-default-font '("Fira Code"
+                               :size 13
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -179,7 +170,7 @@ values."
    ;; pressing `<leader> m`. Set it to `nil` to disable it. (default ",")
    dotspacemacs-major-mode-leader-key ","
    ;; Major mode leader key accessible in `emacs state' and `insert state'.
-   ;; (default "C-M-m)
+   ;; (default "C-M-m")
    dotspacemacs-major-mode-emacs-leader-key "C-M-m"
    ;; These variables control whether separate commands are bound in the GUI to
    ;; the key pairs C-i, TAB and C-m, RET.
@@ -220,7 +211,7 @@ values."
    dotspacemacs-max-rollback-slots 5
    ;; If non-nil, `helm' will try to minimize the space it uses. (default nil)
    dotspacemacs-helm-resize nil
-   ;; if non nil, the helm header is hidden when there is only one source.
+   ;; if non-nil, the helm header is hidden when there is only one source.
    ;; (default nil)
    dotspacemacs-helm-no-header nil
    ;; define the position to display `helm', options are `bottom', `top',
@@ -255,10 +246,10 @@ values."
    ;; If non-nil the frame is fullscreen when Emacs starts up. (default nil)
    ;; (Emacs 24.4+ only)
    dotspacemacs-fullscreen-at-startup t
-   ;; If non nil `spacemacs/toggle-fullscreen' will not use native fullscreen.
+   ;; If non-nil `spacemacs/toggle-fullscreen' will not use native fullscreen.
    ;; Use to disable fullscreen animations in OSX. (default nil)
-   dotspacemacs-fullscreen-use-non-native nil
-   ;; If non nil the frame is maximized when Emacs starts up.
+   dotspacemacs-fullscreen-use-non-native t
+   ;; If non-nil the frame is maximized when Emacs starts up.
    ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
    ;; (default nil) (Emacs 24.4+ only)
    dotspacemacs-maximized-at-startup nil
@@ -280,10 +271,20 @@ values."
    ;; scrolling overrides the default behavior of Emacs which recenters point
    ;; when it reaches the top or bottom of the screen. (default t)
    dotspacemacs-smooth-scrolling t
-   ;; If non-nil line numbers are turned on in all `prog-mode' and `text-mode'
-   ;; derivatives. If set to `relative', also turns on relative line numbers.
+   ;; Control line numbers activation.
+   ;; If set to `t' or `relative' line numbers are turned on in all `prog-mode' and
+   ;; `text-mode' derivatives. If set to `relative', line numbers are relative.
+   ;; This variable can also be set to a property list for finer control:
+   ;; '(:relative nil
+   ;;   :disabled-for-modes dired-mode
+   ;;                       doc-view-mode
+   ;;                       markdown-mode
+   ;;                       org-mode
+   ;;                       pdf-view-mode
+   ;;                       text-mode
+   ;;   :size-limit-kb 1000)
    ;; (default nil)
-   dotspacemacs-line-numbers nil
+   dotspacemacs-line-numbers 'relative
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'evil
@@ -293,7 +294,7 @@ values."
    ;; If non-nil pressing the closing parenthesis `)' key in insert mode passes
    ;; over any automatically added closing parenthesis, bracket, quote, etc…
    ;; This can be temporary disabled by pressing `C-q' before `)'. (default nil)
-   dotspacemacs-smart-closing-parenthesis any
+   dotspacemacs-smart-closing-parenthesis 'any
    ;; Select a scope to highlight delimiters. Possible values are `any',
    ;; `current', `all' or `nil'. Default is `all' (highlight any scope and
    ;; emphasis the current one). (default 'all)
@@ -302,8 +303,8 @@ values."
    ;; (default nil)
    dotspacemacs-persistent-server nil
    ;; List of search tool executable names. Spacemacs uses the first installed
-   ;; tool of the list. Supported tools are `ag', `pt', `ack' and `grep'.
-   ;; (default '("ag" "pt" "ack" "grep"))
+   ;; tool of the list. Supported tools are `rg', `ag', `pt', `ack' and `grep'.
+   ;; (default '("rg" "ag" "pt" "ack" "grep"))
    dotspacemacs-search-tools '("rg" "ag" "pt" "ack" "grep")
    ;; The default package repository used if no explicit repository has been
    ;; specified with an installed package.
@@ -314,65 +315,86 @@ values."
    ;; `trailing' to delete only the whitespace at end of lines, `changed'to
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
-   dotspacemacs-whitespace-cleanup trailing
+   dotspacemacs-whitespace-cleanup 'all
    ))
 
 (defun dotspacemacs/user-init ()
   "Initialization function for user code.
-It is called immediately after `dotspacemacs/init'.  You are free to put any
-user code."
+It is called immediately after `dotspacemacs/init', before layer configuration
+executes.
+ This function is mostly useful for variables that need to be set
+before packages are loaded. If you are unsure, you should try in setting them in
+`dotspacemacs/user-config' first."
+  (add-to-list 'exec-path "~/.node_modules/bin" t)
   )
 
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
- This function is called at the very end of Spacemacs initialization after
-layers configuration. You are free to put any user code."
-  (setq powerline-default-separator 'utf-8)
-  (setq helm-echo-input-in-header-line nil)
-  (display-time-mode t)
-  (global-linum-mode)
-  (line-number-mode)
-  (spacemacs/toggle-line-numbers-on)
-  (linum-relative-mode)
-  (setq powerline-default-separator nil)
+This function is called at the very end of Spacemacs initialization after
+layers configuration.
+This is the place where most of your configurations should be done. Unless it is
+explicitly specified that a variable should be set before a package is loaded,
+you should place your code here."
+;; (setq powerline-default-separator 'utf-8)
+;;   (setq helm-echo-input-in-header-line nil)
+;;   (display-time-mode t)
+;;   (global-linum-mode)
+;;   (line-number-mode)
+;;   (spacemacs/toggle-line-numbers-on)
+;;   (linum-relative-mode)
+;;   (setq powerline-default-separator nil)
   (when (fboundp 'windmove-default-keybindings)
     (windmove-default-keybindings))
+  (setq term-bind-key-alist
+        (list
+         ( cons "M-<left>"  'term-send-backward-word)
+         ( cons "M-<right>"  'term-send-forward-word)
+         ( cons "M-<backspace>"  'term-send-backward-kill-word)
+         ))
+  (defun term-send-Mbackspace () (interactive)(term-send-raw-string "\e\d"))
+  (defun term-send-Cright () (interactive) (term-send-raw-string "\e[1;5C"))
+  (defun term-send-Cleft  () (interactive) (term-send-raw-string "\e[1;5D"))
+  ;; word deletion fix
+  (add-hook 'term-mode-hook (lambda ()
+                              (define-key term-raw-map (kbd "M-<left>")  'term-send-Cleft)
+                              (define-key term-raw-map (kbd "M-<right>")  'term-send-Cright)
+                              (define-key term-raw-map (kbd "M-<backspace>") 'term-send-Mbackspace)
+                              ))
+  ;; (load-file "~/.emacs.d/elpa/org-medium/org-sendto-medium.el")
+  ;; (defun gtd ()
+  ;;   (interactive)
+  ;;   (find-file "~/Dropbox/Org-mode/gtd.org"))
+  ;; (custom-set-variables
+  ;;  '(org-agenda-files
+  ;;    (quote
+  ;;     ("~/Dropbox/Org-mode/gtd.org" "~/Dropbox/Org-mode/gtd.org_archive" "~/Dropbox/Org-mode/full-monty.org" "~/Dropbox/Org-mode/full-monty.org_archive")))
+  ;;  )
+  ;; (setq org-directory "~/Dropbox/Org-mode")
+  ;; (setq org-mobile-inbox-for-pull "~/Dropbox/Org-mode/flagged.org")
+  ;; (setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
+  ;; (global-set-key "\C-cl" 'org-store-link)
 
-  (load-file "~/.emacs.d/elpa/org-medium/org-sendto-medium.el")
-  (defun gtd ()
-    (interactive)
-    (find-file "~/Dropbox/Org-mode/gtd.org"))
-  (custom-set-variables
-   '(org-agenda-files
-     (quote
-      ("~/Dropbox/Org-mode/gtd.org" "~/Dropbox/Org-mode/gtd.org_archive")))
-   )
-  (setq org-directory "~/Dropbox/Org-mode")
-  (setq org-mobile-inbox-for-pull "~/Dropbox/Org-mode/flagged.org")
-  (setq org-mobile-directory "~/Dropbox/Apps/MobileOrg")
-  (global-set-key "\C-cl" 'org-store-link)
+  ;; (global-set-key (kbd "C-c c") 'org-capture)
+  ;; (setq org-capture-templates
+  ;;       '(("t" "Todo" entry (file+headline "~/Dropbox/Org-mode/gtd.org" "Tasks")
+  ;;          "* TODO %?\n  %i\n")))
 
-  (global-set-key (kbd "C-c c") 'org-capture)
-  (setq org-capture-templates
-        '(("t" "Todo" entry (file+headline "~/Dropbox/Org-mode/gtd.org" "Tasks")
-           "* TODO %?\n  %i\n")))
-
-  (require 'org-install)
-  (require 'org-mobile)
-  (require 'org-mobile-sync)
-  (org-mobile-sync-mode 1)
-  (defun org-archive-done-tasks ()
-    (interactive)
-    (org-map-entries
-     (lambda ()
-       (org-archive-subtree)
-       (setq org-map-continue-from (outline-previous-heading)))
-     "/DONE" 'file)
-    (org-map-entries
-     (lambda ()
-       (org-archive-subtree)
-       (setq org-map-continue-from (outline-previous-heading)))
-     "/CANCELLED" 'file))
+  ;; (require 'org-install)
+  ;; (require 'org-mobile)
+  ;; (require 'org-mobile-sync)
+  ;; (org-mobile-sync-mode 1)
+  ;; (defun org-archive-done-tasks ()
+  ;;   (interactive)
+  ;;   (org-map-entries
+  ;;    (lambda ()
+  ;;      (org-archive-subtree)
+  ;;      (setq org-map-continue-from (outline-previous-heading)))
+  ;;    "/DONE" 'file)
+  ;;   (org-map-entries
+  ;;    (lambda ()
+  ;;      (org-archive-subtree)
+  ;;      (setq org-map-continue-from (outline-previous-heading)))
+  ;;    "/CANCELLED" 'file))
 
   (defun my-esc (prompt)
     "Functionality for escaping generally.  Includes exiting Evil insert state and C-g binding. "
@@ -403,83 +425,60 @@ layers configuration. You are free to put any user code."
    ;; bash-mode
    sh-indentation 2
    sh-basic-offset 2)
+  (setq js2-include-node-externs t)
+  (setq js2-highlight-external-variables nil)
 
   ;; (add-to-list 'auto-mode-alist '("\\.js?\\'" . js2-jsx-mode))
   ;; (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-jsx-mode))
-  (with-eval-after-load 'web-mode
-    (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
-    (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
-    (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil)))
+  ;; (with-eval-after-load 'web-mode
+  ;;   (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
+  ;;   (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
+  ;;   (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil)))
 
-  (setq helm-echo-input-in-header-line nil)
-  (setq js2-include-node-externs t)
-  ;; (setq js2-highlight-external-variables nil)
+  ;; (setq helm-echo-input-in-header-line nil)
 
   ;; (global-set-key [f12] '(lambda()
   ;;                          (interactive)
   ;;                          (async-shell-command "killall node; npm run dev")))
 
-  (add-hook 'term-mode-hook
-            (lambda ()
-              (define-key term-mode-map (kbd "M-DEL")       'term-send-backward-kill-word)
-              (define-key term-raw-map (kbd "<S-left>")       'term-send-backward-one-word)
-              (define-key term-raw-map (kbd "<S-right>")       'term-send-forward-one-word)
-              ))
+  ;; (flycheck-define-checker proselint
+  ;;                          "A linter for prose."
+  ;;                          :command ("proselint" source-inplace)
+  ;;                          :error-patterns
+  ;;                          ((warning line-start (file-name) ":" line ":" column ": "
+  ;;                                    (id (one-or-more (not (any " "))))
+  ;;                                    (message (one-or-more not-newline)
+  ;;                                             (zero-or-more "\n" (any " ") (one-or-more not-newline)))
+  ;;                                    line-end))
+  ;;                          :modes (text-mode markdown-mode gfm-mode))
 
-  (flycheck-define-checker proselint
-                           "A linter for prose."
-                           :command ("proselint" source-inplace)
-                           :error-patterns
-                           ((warning line-start (file-name) ":" line ":" column ": "
-                                     (id (one-or-more (not (any " "))))
-                                     (message (one-or-more not-newline)
-                                              (zero-or-more "\n" (any " ") (one-or-more not-newline)))
-                                     line-end))
-                           :modes (text-mode markdown-mode gfm-mode))
+  ;; (add-to-list 'flycheck-checkers 'proselint)
 
-  (add-to-list 'flycheck-checkers 'proselint)
-
-  (find-file "~/Dropbox/Org-mode/gtd.org")
-  (org-mobile-pull)
-  (org-archive-done-tasks)
+;;  (find-file "~/Dropbox/Org-mode/gtd.org")
+ ;; (org-mobile-pull)
+;;  (org-archive-done-tasks)
   (setenv "PATH" (concat (getenv "PATH") "~/Documents/go-workspace/bin/"))
   (setenv "PATH" (concat (getenv "PATH") "/usr/local/bin/"))
   (add-to-list 'exec-path "~/Documents/go-workspace/bin")
   (add-to-list 'exec-path "/usr/local/bin/")
-  )
-
-;; Do not write anything past this comment. This is where Emacs will
-;; auto-generate custom variable definitions.
+)
+(defun dotspacemacs/emacs-custom-settings ()
+  "Emacs custom settings.
+This is an auto-generated function, do not modify its content directly, use
+Emacs customize menu instead.
+This function is called at the very end of Spacemacs initialization."
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(blink-cursor-mode nil)
- '(column-number-mode t)
- '(custom-safe-themes
-   (quote
-    ("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" default)))
- '(display-time-mode t)
- '(helm-file-cache-fuzzy-match nil)
- '(org-agenda-files
-   (quote
-    ("~/Dropbox/Org-mode/full-monty.org" "~/Dropbox/Org-mode/gtd.org" "~/Dropbox/Org-mode/gtd.org_archive")))
- '(org-medium-default-visibility "draft")
- '(org-medium-integration-token
-   "22b839cf1c9a9c04123aa9b80e9a7544268684aa19d1e4a251987b2a5027f42fc")
  '(package-selected-packages
    (quote
-    (docker tablist docker-tramp osx-dictionary pcache go-guru hide-comnt pug-mode wgrep smex ivy-hydra flyspell-correct-ivy counsel-projectile counsel swiper ivy undo-tree org-mobile-sync terraform-mode hcl-mode dumb-jump org flycheck-gometalinter react-snippets org-projectile mwim git-link flyspell-correct-helm evil-unimpaired color-identifiers-mode go-eldoc company-go go-mode uuidgen rake f org-download livid-mode skewer-mode simple-httpd link-hint flyspell-correct eyebrowse evil-visual-mark-mode evil-ediff eshell-z column-enforce-mode clojure-snippets powerline alert log4e gntp json-snatcher json-reformat parent-mode request haml-mode fringe-helper git-gutter+ git-gutter flx magit-popup git-commit with-editor iedit anzu dash-functional tern pos-tip hydra inflections edn multiple-cursors peg eval-sexp-fu highlight spinner queue pkg-info epl inf-ruby yasnippet packed dash async popup package-build bind-key bind-map js2-mode flycheck smartparens paredit cider clojure-mode auto-complete avy web-completion-data company gitignore-mode helm helm-core projectile markdown-mode magit s evil helm-gtags ggtags rainbow-mode rainbow-identifiers material-theme yaml-mode xterm-color ws-butler window-numbering which-key web-mode web-beautify volatile-highlights vi-tilde-fringe vagrant-tramp vagrant use-package toc-org tagedit spacemacs-theme spaceline smooth-scrolling smeargle slim-mode shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe reveal-in-osx-finder restart-emacs rbenv rainbow-delimiters quelpa popwin persp-mode pcre2el pbcopy paradox page-break-lines osx-trash orgit org-repo-todo org-present org-pomodoro org-plus-contrib org-bullets open-junk-file neotree multi-term move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum linum-relative leuven-theme less-css-mode launchctl json-mode js2-refactor js-doc jade-mode info+ indent-guide ido-vertical-mode ibuffer-projectile hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flyspell helm-flx helm-descbinds helm-dash helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe git-gutter-fringe+ gh-md flycheck-pos-tip flx-ido fill-column-indicator feature-mode fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-jumper evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eshell-prompt-extras esh-help emmet-mode elisp-slime-nav dockerfile-mode diff-hl define-word dash-at-point company-web company-tern company-statistics company-quickhelp coffee-mode clj-refactor clean-aindent-mode cider-eval-sexp-fu chruby bundler buffer-move bracketed-paste auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell)))
- '(projectile-globally-ignored-directories
-   (quote
-    (".idea" ".eunit" ".git" ".hg" ".fslckout" ".bzr" "_darcs" ".tox" ".svn" ".stack-work" "/node_modules" "node_modules" "node_modules/" "public" "/public" "public/*/*" "/public/**/*")))
- '(tool-bar-mode nil))
+    (define-word xterm-color ws-butler winum which-key web-mode web-beautify vue-mode volatile-highlights vi-tilde-fringe uuidgen use-package unfill toc-org terraform-mode tagedit stylus-mode spaceline smeargle slim-mode shell-pop scss-mode sass-mode reveal-in-osx-finder restart-emacs rainbow-delimiters pug-mode popwin persp-mode pcre2el pbcopy paradox osx-trash osx-dictionary orgit org-projectile org-present org-pomodoro org-download org-bullets open-junk-file neotree mwim multi-term move-text markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode linum-relative link-hint less-css-mode launchctl js2-refactor js-doc info+ indent-guide ibuffer-projectile hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-purpose helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-dash helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio go-guru go-eldoc gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy flyspell-correct-helm flycheck-pos-tip flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav dumb-jump dockerfile-mode docker diff-hl dash-at-point company-web company-tern company-statistics company-quickhelp company-go column-enforce-mode color-theme-sanityinc-solarized coffee-mode clean-aindent-mode auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Fira Code" :foundry "nil" :slant normal :weight normal :height 151 :width normal))))
- '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
- '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
+ )
+)
