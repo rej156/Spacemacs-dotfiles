@@ -1,11 +1,14 @@
 {
+  "dependencyBudget": "tern.defaultOptions.dependencyBudget",
+  "ecmaScript": true,
   "ecmaVersion": 6,
   "esVersion": 6,
   "libs": [
     "ecma6",
     "ecma5",
     "browser",
-    "jquery"
+    "jquery",
+    "jest"
   ],
   "loadEagerly": [
     "./src/**",
@@ -13,6 +16,8 @@
     "./src/**/*.jsx",
     "./src/**/*.test.jsx",
     "./src/**/*.test.js",
+    "./src/**/*.spec.jsx",
+    "./src/**/*.spec.js",
     "./node_modules/react/**/*.js",
     "path/to/your/js/**/*.js",
     "*.js",
@@ -35,7 +40,8 @@
     "es_modules": {},
     "react": {},
     "doc_comment": {
-      "fullDocs": true
+      "fullDocs": true,
+      "strong": true
     }
   }
 }
