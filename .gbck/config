@@ -2,7 +2,7 @@
     "~/Library/Application Support/Code - Insiders/User/settings.json",
     "~/.zshrc",
     "~/.bashrc",
-    "~/yarn-global-list.txt",
+    "~/.config/yarn/global/package.json",
     "~/brew-list.txt",
     "~/brew-cask-list.txt",
     "~/.bash_profile"
