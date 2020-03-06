@@ -3,5 +3,6 @@
     "~/.zshrc",
     "~/.bashrc",
     "~/yarn-global-list.txt",
+    "~/brew-list.txt",
     "~/.bash_profile"
 ]}
