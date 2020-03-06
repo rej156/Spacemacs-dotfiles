@@ -1,5 +1,6 @@
 {"url":"git@github.com:rej156/Spacemacs-dotfiles.git","readme":"README.md","entities":[
     "~/Library/Application Support/Code - Insiders/User/settings.json",
     "~/.zshrc",
-    "~/.bashrc"
+    "~/.bashrc",
+    "~/.bash_profile"
 ]}
