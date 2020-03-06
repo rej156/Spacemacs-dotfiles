@@ -4,5 +4,6 @@
     "~/.bashrc",
     "~/yarn-global-list.txt",
     "~/brew-list.txt",
+    "~/brew-cask-list.txt",
     "~/.bash_profile"
 ]}
