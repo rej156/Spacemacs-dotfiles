@@ -22,6 +22,11 @@
   "sync.showSummary": true,
   "sync.forceDownload": false,
   "sync.anonymousGist": false,
+  "files.watcherExclude": {
+      "**/.git/objects/**": true,
+      "**/.git/subtree-cache/**": true,
+      "**/node_modules/*/**": true
+    },
   "files.exclude": {
     "**/.git": true,
     "**/.svn": true,
@@ -45,10 +50,9 @@
   "editor.detectIndentation": false,
   "vim.autoindent": true,
   "editor.formatOnSave": true,
-  "eslint.autoFixOnSave": true,
+  "eslint.codeActionsOnSave": true,
   "editor.trimAutoWhitespace": true,
   "json.format.enable": true,
-  "prettier.parser": "babylon",
   "prettier.bracketSpacing": true,
   "prettier.tabWidth": 2,
   "prettier.printWidth": 120,
@@ -64,8 +68,6 @@
   },
   "docker.enableLinting": true,
   "cSpell.language": "en-GB",
-  "vim.enableNeovim": true,
-  "vim.disableAnnoyingNeovimMessage": true,
   "vim.disableAnnoyingGcMessage": true,
   "emmet.syntaxProfiles": {
     "reason": "jsx",
@@ -75,18 +77,6 @@
       "attr_quotes": "single"
     }
   },
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    {
-      "language": "typescript",
-      "autoFix": true
-    },
-    {
-      "language": "typescriptreact",
-      "autoFix": true
-    }
-  ],
   "emmet.includeLanguages": {
     "reason": "javascriptreact",
     "typescript": "typescriptreact"
@@ -103,6 +93,7 @@
   "sync.quietSync": false,
   "sync.askGistName": false,
   "[javascriptreact]": {
+    "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "extensions.ignoreRecommendations": false,
@@ -197,7 +188,7 @@
       "before": [
         "<leader>",
         "w",
-        "2",
+        "2"
       ],
       "after": [],
       "commands": [
@@ -211,7 +202,7 @@
       "before": [
         "<leader>",
         "w",
-        "|",
+        "|"
       ],
       "after": [],
       "commands": [
@@ -1295,46 +1286,22 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[typescriptreact]": {
+    "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[typescript]": {
+    "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.formatOnSave": true
   },
   "python.insidersChannel": "off",
   "python.envFile": "${workspaceFolder}/.env",
   "python.jediEnabled": false,
-  "editor.formatOnSave": true,
-  "[javascript]": {
-    "editor.formatOnSave": false,
-  },
-  "[javascriptreact]": {
-    "editor.formatOnSave": false,
-  },
-  "[typescript]": {
-    "editor.formatOnSave": false,
-  },
-  "[typescriptreact]": {
-    "editor.formatOnSave": false,
-  },
-  "eslint.autoFixOnSave": true,
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    {
-      "language": "typescript",
-      "autoFix": true
-    },
-    {
-      "language": "typescriptreact",
-      "autoFix": true
-    }
-  ],
   "editor.acceptSuggestionOnEnter": "off",
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
@@ -1343,5 +1310,5 @@
     "enabled": false,
     "printEngine": "pprint",
     "width": 120
-  },
+  }
 }
